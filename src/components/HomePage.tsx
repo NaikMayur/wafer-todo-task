@@ -38,6 +38,12 @@ const useStyles = makeStyles((theme: Theme) =>
         maxWidth: "80vw",
       },
     },
+    cardContainer: {
+      width: "45vw",
+      [theme.breakpoints.down("md")]: {
+        width: "80vw",
+      },
+    },
   })
 );
 
@@ -108,7 +114,7 @@ const HomePage = () => {
         searchQuery={searchQuery}
         handleSearchInputChange={handleSearchInputChange}
       />
-      <Grid item flex={1} sx={{ width: "45vw" }}>
+      <Grid item flex={1} className={classes.cardContainer}>
         {filteredTasks.map((task: any, index: any) => (
           <Grid item key={task._id} sx={{ width: "100%" }}>
             <TaskCard
