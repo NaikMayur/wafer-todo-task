@@ -37,5 +37,5 @@ The backend of this application follows the RESTful principles, utilizing HTTP m
 1. Clone this repository and get started:
 
    ```bash
-   https://github.com/NaikMayur/wafer-todo-task
+   [https://github.com/NaikMayur/wafer-todo-task](https://github.com/NaikMayur/wafer-todo-task.git)https://github.com/NaikMayur/wafer-todo-task.git
    
