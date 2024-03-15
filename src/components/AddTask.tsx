@@ -35,7 +35,7 @@ const AddTaskPage = () => {
       const taskData = { ...formData, status: "Pending" };
       //fire req to create task
       const response = await axios.post(
-        "http://localhost:4000/api/tasks",
+        "https://to-do-list-server-sdnp.onrender.com/api/tasks",
         taskData
       );
       console.log("Task created successfully:", response.data);

@@ -56,7 +56,9 @@ const HomePage = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:4000/api/get-tasks");
+      const response = await fetch(
+        "https://to-do-list-server-sdnp.onrender.com/api/get-tasks"
+      );
       const data = await response.json();
       dispatch(setTasks(data));
     } catch (error) {

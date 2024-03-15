@@ -31,7 +31,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
   const onSubmit = async (data: any) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/update-tasks/${task._id}`,
+        `https://to-do-list-server-sdnp.onrender.com/api/update-tasks/${task._id}`,
         data,
         {
           headers: {
@@ -53,7 +53,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:4000/api/delete-tasks/${task._id}`,
+        `https://to-do-list-server-sdnp.onrender.com/api/delete-tasks/${task._id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
       }
       //get updated data
       const updatedTasksResponse = await axios.get(
-        "http://localhost:4000/api/get-tasks"
+        "https://to-do-list-server-sdnp.onrender.com/api/get-tasks"
       );
       dispatch(setTasks(updatedTasksResponse.data));
 
