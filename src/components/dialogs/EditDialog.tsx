@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -18,7 +18,13 @@ import { viewTask, setTasks } from "../../slices/taskSlice";
 import CloseIcon from "@mui/icons-material/Close";
 
 const EditTaskDialog = ({ open, handleClose, task }: any) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm();
+  const [submitted, setSubmitted] = useState(false);
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (task) {
@@ -47,11 +53,13 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
       handleClose();
     } catch (error: any) {
       console.error("Error updating task:", error.message);
+      alert(`Could not fulfill request!`);
     }
   };
 
   const handleDelete = async () => {
     try {
+      setSubmitted(true);
       const response = await axios.delete(
         `https://to-do-list-server-sdnp.onrender.com/api/delete-tasks/${task._id}`,
         {
@@ -72,6 +80,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
       handleClose();
     } catch (error: any) {
       console.error("Error deleting task:", error.message);
+      alert(`Could not fulfill request!`);
     }
   };
 
@@ -126,6 +135,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
               variant="contained"
               type="submit"
               onClick={handleSubmit(onSubmit)}
+              disabled={isSubmitting}
             >
               Update
             </Button>
@@ -133,6 +143,7 @@ const EditTaskDialog = ({ open, handleClose, task }: any) => {
               color="secondary"
               variant="contained"
               onClick={handleDelete}
+              disabled={submitted}
             >
               Delete{" "}
             </Button>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, Button, Theme } from "@mui/material";
+import { Grid, Button, Theme, Typography } from "@mui/material";
 import { makeStyles, createStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { setTasks, viewTask } from "../slices/taskSlice";
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     body: {
       backgroundColor: "#282c34",
       alignItems: "center",
-      justifyContent: "center",
+      padding: "1rem",
     },
     titleContainer: {
       marginTop: "5rem",
@@ -115,27 +115,35 @@ const HomePage = () => {
         handleSearchInputChange={handleSearchInputChange}
       />
       <Grid item flex={1} className={classes.cardContainer}>
-        {filteredTasks.map((task: any, index: any) => (
-          <Grid item key={task._id} sx={{ width: "100%" }}>
-            <TaskCard
-              task={task}
-              handleExpand={handleExpand}
-              handleEditClick={handleEditClick}
-              index={index}
-            />
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task: any, index: any) => (
+            <Grid item key={task._id} sx={{ width: "100%" }}>
+              <TaskCard
+                task={task}
+                handleExpand={handleExpand}
+                handleEditClick={handleEditClick}
+                index={index}
+              />
+            </Grid>
+          ))
+        ) : (
+          <Grid item sx={{ display: "flex", justifyContent: "center" }}>
+            <Typography variant="h3" style={{ color: "white" }}>
+              No tasks found!.
+            </Typography>
           </Grid>
-        ))}
-      </Grid>
+        )}
 
-      <Grid item sx={{ marginTop: "1rem" }}>
-        <Button color="primary" variant="contained">
-          <Link
-            to="/add-task"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Add Todo
-          </Link>
-        </Button>
+        <Grid container justifyContent="center" sx={{ marginTop: "1rem" }}>
+          <Button color="primary" variant="contained">
+            <Link
+              to="/add-task"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Add Todo
+            </Link>
+          </Button>
+        </Grid>
       </Grid>
       {selectedTask && (
         <EditTaskDialog

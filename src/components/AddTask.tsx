@@ -27,7 +27,7 @@ const AddTaskPage = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
   const onSubmit = async (formData: FormData) => {
@@ -39,11 +39,12 @@ const AddTaskPage = () => {
         taskData
       );
       console.log("Task created successfully:", response.data);
+      reset();
+      navigate("/");
     } catch (error) {
       console.error("Error creating task:", error);
+      alert("Task could not be created!");
     }
-    reset();
-    navigate("/");
   };
 
   return (
@@ -90,6 +91,8 @@ const AddTaskPage = () => {
           variant="contained"
           color="primary"
           onClick={handleSubmit(onSubmit)}
+          disabled={isSubmitting}
+          sx={{ color: "white" }}
         >
           Add Task
         </Button>
