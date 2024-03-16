@@ -1,23 +1,39 @@
-import { ClassNames } from "@emotion/react";
-import { Grid, TextField, Theme } from "@mui/material";
+import { Grid, MenuItem, Select, TextField, Theme } from "@mui/material";
 import { createStyles, makeStyles } from "@mui/styles";
+import { useForm } from "react-hook-form";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     search: {
-      width: "45vw",
+      width: "35vw",
       [theme.breakpoints.down("md")]: {
-        width: "80vw",
+        width: "70vw",
       },
+    },
+    select: {
+      marginLeft: "1rem",
+      backgroundColor: "white",
+      borderRadius: "20px",
     },
   })
 );
 
-const SearchInput = ({ searchQuery, handleSearchInputChange }: any) => {
+const SearchInput = ({
+  searchQuery,
+  handleSearchInputChange,
+  handleFilterChange,
+}: any) => {
   const classes = useStyles();
+  const { register, handleSubmit } = useForm();
+
+  const handleFilter = async (event: any) => {
+    const selectedValue = event.target.value as string;
+    handleFilterChange(selectedValue);
+  };
+
   return (
     <Grid
-      item
+      container
       xs={12}
       sx={{
         width: "100%",
@@ -37,6 +53,17 @@ const SearchInput = ({ searchQuery, handleSearchInputChange }: any) => {
         }}
         className={classes.search}
       />
+      <Select
+        defaultValue="All"
+        className={classes.select}
+        {...register("status")}
+        sx={{ color: "black" }}
+        onChange={handleFilter}
+      >
+        <MenuItem value="All">All</MenuItem>
+        <MenuItem value="Done">Done</MenuItem>
+        <MenuItem value="Pending">Pending</MenuItem>
+      </Select>
     </Grid>
   );
 };

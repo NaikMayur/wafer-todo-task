@@ -3,6 +3,7 @@ import { TextField, Button, Grid, Theme, Typography } from "@mui/material";
 import axios from "axios";
 import { createStyles, makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,17 +86,26 @@ const AddTaskPage = () => {
           />
         </form>
       </Grid>
-      <Grid item justifyContent="center" sx={{ marginTop: "1rem" }}>
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isSubmitting}
-          sx={{ color: "white" }}
-        >
-          Add Task
-        </Button>
+      <Grid container justifyContent="center" spacing={2}>
+        <Grid item justifyContent="center" sx={{ marginTop: "1rem" }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting}
+            sx={{ color: "white" }}
+          >
+            Add Task
+          </Button>
+        </Grid>
+        <Grid item justifyContent="center" sx={{ marginTop: "1rem" }}>
+          <Button color="primary" variant="contained">
+            <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+              Go Back
+            </Link>
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

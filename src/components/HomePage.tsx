@@ -7,6 +7,7 @@ import TaskCard from "./TaskCard";
 import EditTaskDialog from "./dialogs/EditDialog";
 import SearchInput from "./SearchBar";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,6 +76,25 @@ const HomePage = () => {
   const handleSearchInputChange = (e: any) => {
     setSearchQuery(e.target.value);
   };
+  const fetchFilteredData = async (data: any) => {
+    try {
+      const response = await axios.get(
+        "https://to-do-list-server-sdnp.onrender.com/api/filtered-tasks",
+        {
+          params: {
+            status: data,
+          },
+        }
+      );
+      console.log("Response from backend:", response.data);
+      dispatch(setTasks(response.data));
+    } catch (error) {
+      console.error("Error sending data to backend:", error);
+    }
+  };
+  const handleFilterChange = (selectedValue: string) => {
+    fetchFilteredData(selectedValue);
+  };
 
   const filteredTasks = tasks.filter((task: any) =>
     task.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -113,6 +133,7 @@ const HomePage = () => {
       <SearchInput
         searchQuery={searchQuery}
         handleSearchInputChange={handleSearchInputChange}
+        handleFilterChange={handleFilterChange}
       />
       <Grid item flex={1} className={classes.cardContainer}>
         {filteredTasks.length > 0 ? (
